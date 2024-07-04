@@ -22,7 +22,7 @@ static void display_packet(u_char *_, const struct pcap_pkthdr *header,
     puts("\n===\n");
 }
 
-static pcap_t *create_handler(char *device_name) {
+static pcap_t *create_handler(const char *device_name) {
     char error[PCAP_ERRBUF_SIZE] = {0};
     int activate = 0;
     pcap_t *handler = NULL;
@@ -41,7 +41,7 @@ static pcap_t *create_handler(char *device_name) {
     return handler;
 }
 
-bool launch_loop_capture(char *device_name) {
+bool launch_loop_capture(const char *device_name) {
     pcap_t *handler = create_handler(device_name);
     
     SAFE(handler);

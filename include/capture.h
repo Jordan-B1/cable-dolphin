@@ -6,7 +6,8 @@
 #include <stdlib.h>
 #include <netinet/in.h>
 #include <net/ethernet.h>
+#include <net/if.h>
 
-bool launch_loop_capture(char *device_name);
+bool launch_loop_capture(const char *device_name);
 
 #endif // __CAPTURE_H__
