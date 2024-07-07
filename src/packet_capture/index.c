@@ -1,35 +1,31 @@
 #include "capture.h"
+#include "ip.h"
 #include "utils.h"
-#include <sys/types.h>
-// #include <tirpc/rpc/types.h>
 
 static bool handle_ip_packet(const u_char *packet) {
-    const u_char *ip_header =
-        packet + sizeof(struct ether_header); // we skip the ether_packet header
-    int packet_size = *ip_header & 15; // The IP packet header size is stored on
-                                       // the last 4 bits of the first byte
-    u_char protocol = 0;
+    const ipv4_header_t *ip_header =
+        (ipv4_header_t *)packet +
+        sizeof(struct ether_header); // We skip the ether_packet header
     struct in_addr ip_addr;
 
-    packet_size *=
-        4; // because the size is stored as number of 32bits segments (4 bytes)
-    protocol = *(ip_header + 9); // The protocol used is stored in the 9th bytes
-    if (protocol == IPPROTO_TCP) {
-        printf("This is a TCP protocol\n");
-    } else if (protocol == IPPROTO_UDP) {
-        printf("This is a UDP protocol\n");
+    for (int i = 0; i < NB_HANDLED_PROTOCOLS; i++) {
+        if (ip_header->protocol == handled_protocols[i].p_value) {
+            // exec packet handling
+            break;
+        }
+        if (i == NB_HANDLED_PROTOCOLS -1 && ip_header->protocol != handled_protocols[i].p_value) {
+            printf("Protocol not handled yet...\n");
+        }
     }
     printf("Source: ");
-
-    for (int i = 0; i < 4; i++) {
-        printf("%u.", *(ip_header + 4 + (sizeof(u_char) * i)));
-    }
+    ip_addr.s_addr = ip_header->source_address;
+    printf("%s", inet_ntoa(ip_addr));
     putchar(10);
     printf("Destination: ");
-    for (int i = 0; i < 4; i++) {
-        printf("%u.", *(ip_header + 8 + (sizeof(u_char) * i)));
-    }
+    ip_addr.s_addr = ip_header->destination_address;
+    printf("%s", inet_ntoa(ip_addr));
     putchar(10);
+    return true;
 }
 
 static void display_packet(u_char *_, const struct pcap_pkthdr *header,
@@ -49,9 +45,6 @@ static void display_packet(u_char *_, const struct pcap_pkthdr *header,
     } else if (ntohs(eth_header->ether_type) == ETHERTYPE_REVARP) {
         printf("Reverse ARP\n");
     }
-    // for (int i = 0; i < header->caplen; i++) {
-    //     printf("%u ", packet[i]);
-    // }
     puts("\n===\n");
 }
 
