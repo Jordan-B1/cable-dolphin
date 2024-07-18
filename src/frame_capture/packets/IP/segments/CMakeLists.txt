@@ -1,0 +1,16 @@
+set(TCP_FOLDER ${CMAKE_CURRENT_LIST_DIR}/tcp)
+
+set(UDP_FOLDER ${CMAKE_CURRENT_LIST_DIR}/udp)
+
+set(TMP_SOURCE
+${CMAKE_CURRENT_LIST_DIR}/tcp/index.c
+${CMAKE_CURRENT_LIST_DIR}/udp/index.c
+${CMAKE_CURRENT_LIST_DIR}/handler.c
+)
+
+
+set(SOURCES
+    ${SOURCES}
+    ${TMP_SOURCE}
+    PARENT_SCOPE
+)
