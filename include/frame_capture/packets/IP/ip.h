@@ -14,13 +14,13 @@ typedef struct ipv4_header_t {
     u_int8_t ihl : 4;
     u_int8_t dscp : 6;
     u_int8_t ecn : 2;
-    unsigned short length;
-    unsigned short id;
+    uint16_t length;
+    uint16_t id;
     u_int8_t flags : 3;
-    unsigned short fragment_offset : 13;
+    uint16_t fragment_offset : 13;
     u_int8_t ttl;
     u_int8_t protocol;
-    unsigned short header_checksum;
+    uint16_t header_checksum;
     u_int32_t source_address;
     u_int32_t destination_address;
     // Some options may come here

@@ -13,20 +13,13 @@ static void display_packet(u_int8_t *_, const struct pcap_pkthdr *header,
     for (int i = 0; i < NB_PACKET_HANDLED; i++) {
         if (handled_packets[i].type == ntohs(eth_header->ether_type)) {
             printf("%s\n", handled_packets[i].display_name);
+            handled_packets[i].handler(packet + sizeof(struct ether_header));
             break;
         }
         if (i == NB_PACKET_HANDLED - 1) {
             printf("not handled packet type...\n");
         }
     }
-    // if (ntohs(eth_header->ether_type) == ETHERTYPE_IP) {
-    //     printf("IP\n");
-    //     handle_ip_packet(packet);
-    // } else if (ntohs(eth_header->ether_type) == ETHERTYPE_ARP) {
-    //     printf("ARP\n");
-    // } else if (ntohs(eth_header->ether_type) == ETHERTYPE_REVARP) {
-    //     printf("Reverse ARP\n");
-    // }
     puts("\n===\n");
 }
 
