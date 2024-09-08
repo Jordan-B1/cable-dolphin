@@ -5,7 +5,8 @@
 #include <stdbool.h>
 #include <sys/types.h>
 #include <stdio.h>
+#include <stdint.h>
 
-bool display_tcp_packet_info(const u_int8_t *packet, const size_t packet_len);
+bool display_tcp_packet_info(const uint8_t *packet, const size_t packet_len);
 
 #endif // __TCP_H__

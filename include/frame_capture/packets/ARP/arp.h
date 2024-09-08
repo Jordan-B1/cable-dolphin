@@ -21,6 +21,6 @@ typedef struct arp_packet_t {
     uint32_t target_protocol_address;
 } arp_packet_t;
 
-bool handle_arp_packet(const u_int8_t *packet);
+bool handle_arp_packet(const uint8_t *packet);
 
 #endif // __ARP_H__

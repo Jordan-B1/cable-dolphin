@@ -15,16 +15,16 @@ void ipv6_filler(char *buffer /*Must be at least 40 bytes*/,
 }
 
 bool handle_ipv6_packet(const uint8_t *packet) {
-    struct in6_addr ipv6_addr;
-    ipv6_packet_t *ipv6_packet = (ipv6_packet_t *)packet;
+    ipv6_header_t *ipv6_header = (ipv6_header_t *)packet;
     char addr_str[40] = {0};
 
-    PSAFE((ipv6_packet->version == 0b0110), ("Unknown ipv6 version...\n"));
+    PSAFE((ipv6_header->version == 0b0110), ("Unknown ipv6 version...\n"));
+    handle_ip_segment(ipv6_header->next_header, packet + sizeof(ipv6_header_t));
     printf("Source: ");
-    ipv6_filler(addr_str, &ipv6_packet->source_address);
+    ipv6_filler(addr_str, &ipv6_header->source_address);
     printf("%s\n", addr_str);
     memset(addr_str, 0, 40);
-    ipv6_filler(addr_str, &ipv6_packet->destination_address);
+    ipv6_filler(addr_str, &ipv6_header->destination_address);
 
     printf("Destination: ");
     printf("%s\n", addr_str);

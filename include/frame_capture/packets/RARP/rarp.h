@@ -6,6 +6,6 @@
 #include <sys/types.h>
 #include <stdio.h>
 
-bool handle_rarp_packet(const u_int8_t *packet);
+bool handle_rarp_packet(const uint8_t *packet);
 
 #endif // __RARP_H__

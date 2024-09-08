@@ -1,8 +1,8 @@
 #include "frame_capture/capture.h"
 #include "utils.h"
 
-static void display_packet(u_int8_t *_, const struct pcap_pkthdr *header,
-                           const u_int8_t *packet) {
+static void display_packet(uint8_t *_, const struct pcap_pkthdr *header,
+                           const uint8_t *packet) {
     struct ether_header *eth_header;
 
     eth_header = (struct ether_header *)packet; // which is 14 bytes

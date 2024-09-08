@@ -10,26 +10,26 @@
 #include <sys/types.h>
 
 typedef struct ipv4_header_t {
-    u_int8_t version : 4;
-    u_int8_t ihl : 4;
-    u_int8_t dscp : 6;
-    u_int8_t ecn : 2;
+    uint8_t version : 4;
+    uint8_t ihl : 4;
+    uint8_t dscp : 6;
+    uint8_t ecn : 2;
     uint16_t length;
     uint16_t id;
-    u_int8_t flags : 3;
+    uint8_t flags : 3;
     uint16_t fragment_offset : 13;
-    u_int8_t ttl;
-    u_int8_t protocol;
+    uint8_t ttl;
+    uint8_t protocol;
     uint16_t header_checksum;
-    u_int32_t source_address;
-    u_int32_t destination_address;
+    uint32_t source_address;
+    uint32_t destination_address;
     // [TODO] Some options may come here
 } ipv4_header_t;
 
 typedef struct ip_protocol_identifier_t {
-    u_int8_t p_value;
+    uint8_t p_value;
     char display_name[5];
-    bool (*displayer)(const u_int8_t *packet, size_t packet_len);
+    bool (*displayer)(const uint8_t *packet, size_t packet_len);
 } ip_protocol_identifier_t;
 
 static const ip_protocol_identifier_t handled_ip_segment[] = {
@@ -39,6 +39,7 @@ static const ip_protocol_identifier_t handled_ip_segment[] = {
 static const size_t NB_HANDLED_IP_SEGMENTS =
     sizeof(handled_ip_segment) / sizeof(ip_protocol_identifier_t);
 
-bool handle_ipv4_packet(const u_int8_t *packet);
+bool handle_ipv4_packet(const uint8_t *packet);
+bool handle_ip_segment(const uint8_t protocol, const uint8_t *packet);
 
 #endif // __IP_H__

@@ -7,7 +7,7 @@
 #include <string.h>
 #include "utils.h"
 
-typedef struct ipv6_packet_t {
+typedef struct ipv6_header_t {
     #if defined(_CPU_BIG_ENDIAN) && !defined(__ICCRX__)
     uint8_t version : 4;       
     uint8_t traffic_class_h : 4;
@@ -25,8 +25,8 @@ typedef struct ipv6_packet_t {
     uint8_t hop_limit;
     struct in6_addr source_address;
     struct in6_addr destination_address;
-} ipv6_packet_t;
+} ipv6_header_t;
 
-bool handle_ipv6_packet(const u_int8_t *packet);
+bool handle_ipv6_packet(const uint8_t *packet);
 
 #endif // __IPV6_H__
