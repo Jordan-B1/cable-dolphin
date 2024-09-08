@@ -2,7 +2,8 @@
 #define __CAPTURE_H__
 
 #include "packets/ARP/arp.h"
-#include "packets/IP/ip.h"
+#include "packets/IPV4/ipv4.h"
+#include "packets/IPV6/ipv6.h"
 #include "packets/RARP/rarp.h"
 #include <net/ethernet.h>
 #include <netinet/in.h>
@@ -17,7 +18,12 @@ typedef struct packet_identifier_t {
 } packet_identifier_t;
 
 static const packet_identifier_t handled_packets[] = {
-    {.type = ETHERTYPE_IP, .display_name = "IP", .handler = handle_ip_packet},
+    {.type = ETHERTYPE_IP,
+     .display_name = "IPV4",
+     .handler = handle_ipv4_packet},
+    {.type = ETHERTYPE_IPV6,
+     .display_name = "IPV6",
+     .handler = handle_ipv6_packet},
     {.type = ETHERTYPE_ARP,
      .display_name = "ARP",
      .handler = handle_arp_packet},

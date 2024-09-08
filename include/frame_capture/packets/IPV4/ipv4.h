@@ -23,7 +23,7 @@ typedef struct ipv4_header_t {
     uint16_t header_checksum;
     u_int32_t source_address;
     u_int32_t destination_address;
-    // Some options may come here
+    // [TODO] Some options may come here
 } ipv4_header_t;
 
 typedef struct ip_protocol_identifier_t {
@@ -39,6 +39,6 @@ static const ip_protocol_identifier_t handled_ip_segment[] = {
 static const size_t NB_HANDLED_IP_SEGMENTS =
     sizeof(handled_ip_segment) / sizeof(ip_protocol_identifier_t);
 
-bool handle_ip_packet(const u_int8_t *packet);
+bool handle_ipv4_packet(const u_int8_t *packet);
 
 #endif // __IP_H__

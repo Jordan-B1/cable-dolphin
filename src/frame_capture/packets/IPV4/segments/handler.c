@@ -1,6 +1,6 @@
-#include "frame_capture/packets/IP/ip.h"
+#include "frame_capture/packets/IPV4/ipv4.h"
 
-bool handle_ip_packet(const u_int8_t *packet) {
+bool handle_ipv4_packet(const u_int8_t *packet) {
     const ipv4_header_t *ip_header = (ipv4_header_t *)packet;
     struct in_addr ip_addr;
 

@@ -17,7 +17,7 @@ static void display_packet(u_int8_t *_, const struct pcap_pkthdr *header,
             break;
         }
         if (i == NB_PACKET_HANDLED - 1) {
-            printf("not handled packet type...\n");
+            printf("not handled packet type [%d]...\n", handled_packets[i].type);
         }
     }
     puts("\n===\n");
@@ -27,7 +27,7 @@ static pcap_t *create_handler(char *device_name) {
     char error[PCAP_ERRBUF_SIZE] = {0};
     int activate = 0;
     pcap_t *handler = NULL;
-
+    
     SAFE(device_name);
     handler = pcap_create(device_name, error);
     PSAFE(device_name, ("%s", error));
