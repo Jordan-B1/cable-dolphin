@@ -10,7 +10,7 @@ set(SOURCES
 )
 
 add_subdirectory(${SOURCE_FOLDER}/frame_capture)
-
+add_subdirectory(${SOURCE_FOLDER}/interface)
 
 include_directories(./include)
 

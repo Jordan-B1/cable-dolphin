@@ -1,4 +1,4 @@
-add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/packets)
+# add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/packets)
 
 set(SOURCES
     ${SOURCES}
