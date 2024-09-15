@@ -40,6 +40,6 @@ static const size_t NB_HANDLED_IP_SEGMENTS =
     sizeof(handled_ip_segment) / sizeof(ip_protocol_identifier_t);
 
 bool handle_ipv4_packet(const uint8_t *packet);
-bool handle_ip_segment(const uint8_t protocol, const uint8_t *packet);
-
+bool handle_ip_segment(const uint8_t protocol, size_t packet_len,
+                       const uint8_t *packet);
 #endif // __IP_H__

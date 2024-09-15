@@ -3,5 +3,5 @@
 bool display_udp_packet_info(const uint8_t *packet, const size_t packet_len)
 {
     SAFE(packet);
-    printf("Protocol: UDP\nInfo: Not implemented yet...\n");
+    printf("Info: Not implemented yet...\n");
 }

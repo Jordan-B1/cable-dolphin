@@ -19,7 +19,8 @@ bool handle_ipv6_packet(const uint8_t *packet) {
     char addr_str[40] = {0};
 
     PSAFE((ipv6_header->version == 0b0110), ("Unknown ipv6 version...\n"));
-    handle_ip_segment(ipv6_header->next_header, packet + sizeof(ipv6_header_t));
+    handle_ip_segment(ipv6_header->next_header, ipv6_header->payload_length,
+                      packet + sizeof(ipv6_header_t));
     printf("Source: ");
     ipv6_filler(addr_str, &ipv6_header->source_address);
     printf("%s\n", addr_str);
