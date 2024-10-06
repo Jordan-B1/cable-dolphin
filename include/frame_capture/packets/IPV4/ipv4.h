@@ -8,16 +8,15 @@
 #include <netinet/in.h>
 #include <sys/socket.h>
 #include <sys/types.h>
+#include <string.h>
+#include "utils.h"
 
 typedef struct ipv4_header_t {
-    uint8_t version : 4;
-    uint8_t ihl : 4;
-    uint8_t dscp : 6;
-    uint8_t ecn : 2;
+    uint8_t version_ihl;
+    uint8_t tos;
     uint16_t length;
     uint16_t id;
-    uint8_t flags : 3;
-    uint16_t fragment_offset : 13;
+    uint16_t flags_offset;
     uint8_t ttl;
     uint8_t protocol;
     uint16_t header_checksum;

@@ -14,18 +14,27 @@ void ipv6_filler(char *buffer /*Must be at least 40 bytes*/,
             (int)addr->s6_addr[15]);
 }
 
+static bool fill_ipv6_header(const uint8_t *packet, ipv6_header_t *header) {
+    SAFE(memcpy(header, packet, sizeof(ipv6_header_t)));
+
+    header->payload_length = ntohs(header->payload_length);
+    header->version_class_flow = ntohl(header->version_class_flow);
+    return true;
+}
+
 bool handle_ipv6_packet(const uint8_t *packet) {
-    ipv6_header_t *ipv6_header = (ipv6_header_t *)packet;
+    ipv6_header_t ipv6_header; // = (ipv6_header_t *)packet;
     char addr_str[40] = {0};
 
-    PSAFE((ipv6_header->version == 0b0110), ("Unknown ipv6 version...\n"));
-    handle_ip_segment(ipv6_header->next_header, ipv6_header->payload_length,
+    SAFE(fill_ipv6_header(packet, &ipv6_header));
+    handle_ip_segment(ntohs(ipv6_header.next_header),
+                      ntohs(ipv6_header.payload_length),
                       packet + sizeof(ipv6_header_t));
     printf("Source: ");
-    ipv6_filler(addr_str, &ipv6_header->source_address);
+    ipv6_filler(addr_str, &ipv6_header.source_address);
     printf("%s\n", addr_str);
     memset(addr_str, 0, 40);
-    ipv6_filler(addr_str, &ipv6_header->destination_address);
+    ipv6_filler(addr_str, &ipv6_header.destination_address);
 
     printf("Destination: ");
     printf("%s\n", addr_str);

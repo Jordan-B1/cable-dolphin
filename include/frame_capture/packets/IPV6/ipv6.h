@@ -8,18 +8,7 @@
 #include "utils.h"
 
 typedef struct ipv6_header_t {
-    #if defined(_CPU_BIG_ENDIAN) && !defined(__ICCRX__)
-    uint8_t version : 4;       
-    uint8_t traffic_class_h : 4;
-    uint8_t traffic_class_l : 4; 
-    uint8_t flow_label_h : 4;
- #else
-    uint8_t traffic_class_h : 4; 
-    uint8_t version : 4;
-    uint8_t flow_label_h : 4;    
-    uint8_t traffic_class_l : 4;
-    #endif
-    uint16_t flow_label_l;
+    uint32_t version_class_flow;
     uint16_t payload_length;
     uint8_t next_header;
     uint8_t hop_limit;

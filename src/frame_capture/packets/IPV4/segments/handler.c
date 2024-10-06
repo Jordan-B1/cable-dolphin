@@ -17,17 +17,32 @@ bool handle_ip_segment(const uint8_t protocol, size_t packet_len,
     return false;
 }
 
+static bool fill_ipv4_header(const uint8_t *packet, ipv4_header_t *header) {
+    SAFE(memcpy(header, packet, sizeof(ipv4_header_t)));
+
+    header->length = ntohs(header->length);
+    header->id = ntohs(header->id);
+    header->flags_offset = ntohs(header->flags_offset);
+    header->header_checksum = ntohs(header->header_checksum);
+    header->source_address = ntohl(header->source_address);
+    header->destination_address = ntohl(header->destination_address);
+    return true;
+}
+
 bool handle_ipv4_packet(const uint8_t *packet) {
-    const ipv4_header_t *ip_header = (ipv4_header_t *)packet;
+    ipv4_header_t ip_header;
     struct in_addr ip_addr;
 
-    handle_ip_segment(ip_header->protocol, ip_header->length - ip_header->ihl,
-                      packet + ip_header->ihl);
+    SAFE(fill_ipv4_header(packet, &ip_header));
+
+    handle_ip_segment(ip_header.protocol,
+                      ip_header.length - (ip_header.version_ihl & 0x0F),
+                      (packet + (ip_header.version_ihl & 0x0F)));
     printf("Source: ");
-    ip_addr.s_addr = ip_header->source_address;
+    ip_addr.s_addr = ip_header.source_address;
     printf("%s\n", inet_ntoa(ip_addr));
     printf("Destination: ");
-    ip_addr.s_addr = ip_header->destination_address;
+    ip_addr.s_addr = ip_header.destination_address;
     printf("%s\n", inet_ntoa(ip_addr));
     return true;
 }
