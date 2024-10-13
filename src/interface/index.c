@@ -8,7 +8,7 @@ static int request_device(pcap_if_t *devices) {
     printf("> Choose a device:\n\n");
 
     for (pcap_if_t *tmp = devices; tmp != NULL; tmp = tmp->next) {
-        printf("%s: %s [%d]\n", tmp->name, tmp->description, index);
+        printf("%s: %s [%d]\n", tmp->name, tmp->description ? tmp->description : "", index);
         index++;
     }
     getline(&user_input, &user_index, stdin);
