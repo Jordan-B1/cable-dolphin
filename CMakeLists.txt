@@ -3,6 +3,8 @@ cmake_minimum_required(VERSION 3.28)
 
 project(cabledolphin C)
 
+set(CMAKE_CXX_FLAGS "-Wall -Wextra")
+
 set(SOURCE_FOLDER ${CMAKE_CURRENT_LIST_DIR}/src)
 
 set(SOURCES

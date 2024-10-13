@@ -10,7 +10,7 @@ bool handle_ip_segment(const uint8_t protocol, size_t packet_len,
         }
         if (i == NB_HANDLED_IP_SEGMENTS - 1 &&
             protocol != handled_ip_segment[i].p_value) {
-            printf("Protocol not handled yet...\n");
+            printf("Protocol not handled yet... [%u]\n", protocol);
             return false;
         }
     }

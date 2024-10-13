@@ -1,6 +1,6 @@
 #include "frame_capture/packets/IPV6/ipv6.h"
 
-void ipv6_filler(char *buffer /*Must be at least 40 bytes*/,
+static void display_ipv6_addr(char *buffer /*Must be at least 40 bytes*/,
                  struct in6_addr *addr) {
     sprintf(buffer,
             "%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%"
@@ -23,18 +23,18 @@ static bool fill_ipv6_header(const uint8_t *packet, ipv6_header_t *header) {
 }
 
 bool handle_ipv6_packet(const uint8_t *packet) {
-    ipv6_header_t ipv6_header; // = (ipv6_header_t *)packet;
+    ipv6_header_t ipv6_header;
     char addr_str[40] = {0};
 
     SAFE(fill_ipv6_header(packet, &ipv6_header));
-    handle_ip_segment(ntohs(ipv6_header.next_header),
-                      ntohs(ipv6_header.payload_length),
+    handle_ip_segment(ipv6_header.next_header,
+                      ipv6_header.payload_length,
                       packet + sizeof(ipv6_header_t));
     printf("Source: ");
-    ipv6_filler(addr_str, &ipv6_header.source_address);
+    display_ipv6_addr(addr_str, &ipv6_header.source_address);
     printf("%s\n", addr_str);
     memset(addr_str, 0, 40);
-    ipv6_filler(addr_str, &ipv6_header.destination_address);
+    display_ipv6_addr(addr_str, &ipv6_header.destination_address);
 
     printf("Destination: ");
     printf("%s\n", addr_str);

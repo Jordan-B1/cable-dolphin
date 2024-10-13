@@ -1,3 +1,5 @@
+set(CMAKE_CXX_FLAGS "-Wall -Wextra")
+
 set(TCP_FOLDER ${CMAKE_CURRENT_LIST_DIR}/tcp)
 
 set(UDP_FOLDER ${CMAKE_CURRENT_LIST_DIR}/udp)
