@@ -45,14 +45,14 @@ sudo apt-get install cmake libpcap-dev
 ## Usage
 
 1. **Start capturing packets**: By default, Cable-Dolphin captures packets on the default network interface.
-2. **Specify a network interface (Soon to come)**: 
+2. **Specify a network interface**: 
    ```bash
    sudo ./cable-dolphin -i eth0
    ```
    Replace `eth0` with the name of the interface you want to capture packets from.
 
 3. **Apply filters (Soon to come)**:
-   Use filters to capture specific types of traffic, for example, to capture TCP traffic:
+   Use filters to capture specific types of traffic amongs ipv4, ipv6, tcp, udp and arp packets, for example, to capture TCP traffic:
    ```bash
    sudo ./cable-dolphin -i eth0 -f "tcp"
    ```
