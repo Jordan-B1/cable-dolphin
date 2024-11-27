@@ -11,13 +11,14 @@ set(SOURCES
     ${SOURCE_FOLDER}/main.c
 )
 
-add_subdirectory(${SOURCE_FOLDER}/lib)
+add_subdirectory(${SOURCE_FOLDER}/libs)
 add_subdirectory(${SOURCE_FOLDER}/frame_capture)
 add_subdirectory(${SOURCE_FOLDER}/interface)
 
-include_directories(./include ./src/lib)
+include_directories(./include ./src/libs/2D_array)
 
 add_executable(cabledolphin ${SOURCES})
 
 target_link_libraries(cabledolphin pcap)
+target_link_libraries(cabledolphin ${ZLOG_LIBRARY})
 target_link_libraries(cabledolphin 2D_ARRAY_LIB)
