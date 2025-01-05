@@ -17,6 +17,12 @@ typedef struct packet_identifier_t {
     bool (*handler)(const uint8_t *packet, output_buffer_t *output_buffer);
 } packet_identifier_t;
 
+typedef struct frame_handler_arg {
+    const struct pcap_pkthdr *header;
+    const uint8_t *packet;
+    pthread_mutex_t *lock;
+} eth_frame_handler_arg_t;
+
 static const packet_identifier_t handled_packets[] = {
     {.type = ETHERTYPE_IP,
      .display_name = "IPV4",
