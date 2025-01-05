@@ -5,7 +5,8 @@
 #include <stdbool.h>
 #include <sys/types.h>
 #include <stdio.h>
+#include "utils.h"
 
-bool handle_rarp_packet(const uint8_t *packet);
+bool handle_rarp_packet(const uint8_t *packet, output_buffer_t *output_buffer);
 
 #endif // __RARP_H__

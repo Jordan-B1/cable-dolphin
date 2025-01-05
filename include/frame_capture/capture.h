@@ -14,7 +14,7 @@
 typedef struct packet_identifier_t {
     uint16_t type;
     char display_name[25];
-    bool (*handler)(const uint8_t *packet);
+    bool (*handler)(const uint8_t *packet, output_buffer_t *output_buffer);
 } packet_identifier_t;
 
 static const packet_identifier_t handled_packets[] = {

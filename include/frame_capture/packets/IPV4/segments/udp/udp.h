@@ -17,6 +17,6 @@ typedef struct udp_header_t {
     uint16_t checksum;
 } udp_header_t;
 
-bool display_udp_packet_info(const uint8_t *packet, const size_t packet_len);
+bool display_udp_packet_info(const uint8_t *packet, const size_t packet_len, output_buffer_t *output_buffer);
 
 #endif // __UDP_H__

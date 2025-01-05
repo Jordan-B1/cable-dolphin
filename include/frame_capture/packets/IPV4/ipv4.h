@@ -28,7 +28,7 @@ typedef struct ipv4_header_t {
 typedef struct ip_protocol_identifier_t {
     uint8_t p_value;
     char display_name[5];
-    bool (*displayer)(const uint8_t *packet, size_t packet_len);
+    bool (*displayer)(const uint8_t *packet, size_t packet_len, output_buffer_t *output_buffer);
 } ip_protocol_identifier_t;
 
 static const ip_protocol_identifier_t handled_ip_segment[] = {
@@ -38,7 +38,7 @@ static const ip_protocol_identifier_t handled_ip_segment[] = {
 static const size_t NB_HANDLED_IP_SEGMENTS =
     sizeof(handled_ip_segment) / sizeof(ip_protocol_identifier_t);
 
-bool handle_ipv4_packet(const uint8_t *packet);
+bool handle_ipv4_packet(const uint8_t *packet, output_buffer_t *output_buffer);
 bool handle_ip_segment(const uint8_t protocol, size_t packet_len,
-                       const uint8_t *packet);
+                       const uint8_t *packet, output_buffer_t *output_buffer);
 #endif // __IP_H__

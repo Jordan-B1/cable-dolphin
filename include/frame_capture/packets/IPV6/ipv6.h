@@ -16,6 +16,6 @@ typedef struct ipv6_header_t {
     struct in6_addr destination_address;
 } ipv6_header_t;
 
-bool handle_ipv6_packet(const uint8_t *packet);
+bool handle_ipv6_packet(const uint8_t *packet, output_buffer_t *output_buffer);
 
 #endif // __IPV6_H__

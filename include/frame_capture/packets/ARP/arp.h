@@ -8,6 +8,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <sys/types.h>
+#include "utils.h"
 
 typedef struct arp_packet_t {
     uint16_t hardware_type;
@@ -21,6 +22,6 @@ typedef struct arp_packet_t {
     uint32_t target_protocol_address;
 } arp_packet_t;
 
-bool handle_arp_packet(const uint8_t *packet);
+bool handle_arp_packet(const uint8_t *packet, output_buffer_t *output_buffer);
 
 #endif // __ARP_H__
