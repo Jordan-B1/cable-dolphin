@@ -40,6 +40,6 @@ static const packet_identifier_t handled_packets[] = {
 static const size_t NB_PACKET_HANDLED =
     sizeof(handled_packets) / sizeof(packet_identifier_t);
 
-bool launch_loop_capture(char *device_name);
+bool launch_loop_capture(const char *device_name);
 
 #endif // __CAPTURE_H__

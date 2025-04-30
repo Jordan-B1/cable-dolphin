@@ -1,5 +1,6 @@
 #include "2D_array.h"
 #include "interface.h"
+#include <stddef.h>
 
 char **list_devices() {
     char errbuf[PCAP_ERRBUF_SIZE] = {0};
@@ -10,7 +11,7 @@ char **list_devices() {
     int status = pcap_findalldevs(&devices, errbuf);
 
     if (status != 0) {
-        fprintf(stderr, "%s\n", errbuf ? errbuf : "Something went wrong...");
+        fprintf(stderr, "%s\n", errbuf[0] ? errbuf : "Something went wrong...");
         return NULL;
     }
     for (pcap_if_t *_ = devices; _; _ = _->next)
@@ -24,40 +25,40 @@ char **list_devices() {
     return devices_name;
 }
 
-static int request_device(const pcap_if_t *devices) {
-    int index = 0;
+static size_t request_device(const pcap_if_t *devices) {
+    size_t index = 0;
     char *user_input = NULL;
     size_t user_index = 0;
 
     printf("> Choose a device:\n\n");
 
     for (const pcap_if_t *tmp = devices; tmp != NULL; tmp = tmp->next) {
-        printf("%s: %s [%d]\n", tmp->name,
+        printf("%s: %s [%ld]\n", tmp->name,
                tmp->description ? tmp->description : "", index);
         index++;
     }
     getline(&user_input, &user_index, stdin);
     user_index = atoi(user_input);
     free(user_input);
-    if (user_index >= index || user_index < 0) {
+    if (user_index >= index || user_index == 0) {
         fprintf(stderr, "Invalid device... Choosing interface 0");
         return 0;
     }
-    return (user_index);
+    return user_index;
 }
 
 char *set_interface(void) {
     char errbuf[PCAP_ERRBUF_SIZE] = {0};
     pcap_if_t *devices = NULL;
     int status = pcap_findalldevs(&devices, errbuf);
-    int index = 0;
+    size_t index = 0;
 
     if (status != 0) {
-        fprintf(stderr, "%s\n", errbuf ? errbuf : "Something went wrong...");
+        fprintf(stderr, "%s\n", errbuf[0] ? errbuf : "Something went wrong...");
         return NULL;
     }
     index = request_device(devices);
-    for (int i = 0; i < index; i++, devices = devices->next)
+    for (size_t i = 0; i < index; i++, devices = devices->next)
         ;
     return devices->name;
 }

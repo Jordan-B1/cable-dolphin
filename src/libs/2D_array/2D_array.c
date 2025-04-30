@@ -17,6 +17,7 @@ int push_in(void *data, void **tab, bool allow_dup) {
         return current_index;
     }
     tab[free_index] = data;
+    return free_index;
 }
 
 void free_tab(void **tab) {

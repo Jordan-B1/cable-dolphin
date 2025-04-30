@@ -5,8 +5,8 @@
 
 static bool packet_identification(const uint8_t *packet, pthread_mutex_t *lock,
                                   output_buffer_t *buffer) {
-    struct ether_header *eth_header =
-        (struct ether_header *)packet; // which is 14 bytes
+    const struct ether_header *eth_header =
+        (const struct ether_header *)packet; // which is 14 bytes
 
     for (size_t i = 0; i < NB_PACKET_HANDLED; i++) {
         if (handled_packets[i].type == ntohs(eth_header->ether_type)) {
@@ -40,7 +40,7 @@ static void *eth_frame_handler(void *arg) {
     return NULL;
 }
 
-static void display_packet(uint8_t *_, const struct pcap_pkthdr *header,
+static void display_packet(__attribute__((unused)) uint8_t *_, const struct pcap_pkthdr *header,
                            const uint8_t *packet) {
     static pthread_mutex_t lock;
     pthread_t thread_id;
@@ -49,7 +49,7 @@ static void display_packet(uint8_t *_, const struct pcap_pkthdr *header,
     pthread_create(&thread_id, NULL, eth_frame_handler, &param);
 }
 
-static pcap_t *create_handler(char *device_name) {
+static pcap_t *create_handler(const char *device_name) {
     char error[PCAP_ERRBUF_SIZE] = {0};
     int activate = 0;
     pcap_t *handler = NULL;
@@ -68,7 +68,7 @@ static pcap_t *create_handler(char *device_name) {
     return handler;
 }
 
-bool launch_loop_capture(char *device_name) {
+bool launch_loop_capture(const char *device_name) {
     pcap_t *handler = create_handler(device_name);
 
     SAFE(handler);

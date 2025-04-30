@@ -6,7 +6,7 @@
 #include <netinet/ether.h>
 #include <netinet/in.h>
 #include <stdbool.h>
-#include <stdio.h>
+#include <stdint.h>
 #include <sys/types.h>
 #include "utils.h"
 
@@ -16,10 +16,10 @@ typedef struct arp_packet_t {
     uint8_t hardware_address_len;
     uint8_t protocol_address_len;
     uint16_t operation;
-    uint64_t sender_hardware_address : 48;
-    uint32_t sender_protocol_address;
-    uint64_t target_hardware_address : 48;
-    uint32_t target_protocol_address;
+    uint8_t sender_hardware_address[6];
+    uint8_t sender_protocol_address[4];
+    uint8_t target_hardware_address[6];
+    uint8_t target_protocol_address[4];
 } arp_packet_t;
 
 bool handle_arp_packet(const uint8_t *packet, output_buffer_t *output_buffer);

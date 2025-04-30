@@ -43,9 +43,9 @@ bool handle_ipv4_packet(const uint8_t *packet, output_buffer_t *output_buffer) {
                     ip_header.length - (ip_header.version_ihl & 0x0F),
                     (packet + (ip_header.version_ihl & 0x0F)), output_buffer);
   write_buffer(output_buffer, "Source: ");
-  ip_addr.s_addr = ip_header.source_address;
+  ip_addr.s_addr = htonl(ip_header.source_address);
   write_buffer(output_buffer, "%s\nDestination: ", inet_ntoa(ip_addr));
-  ip_addr.s_addr = ip_header.destination_address;
+  ip_addr.s_addr = htonl(ip_header.destination_address);
   write_buffer(output_buffer, "%s\n", inet_ntoa(ip_addr));
   return true;
 }

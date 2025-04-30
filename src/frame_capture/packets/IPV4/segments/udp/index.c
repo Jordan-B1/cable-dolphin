@@ -11,7 +11,7 @@ static bool fill_udp_header(const uint8_t *packet, udp_header_t *header) {
   return true;
 }
 
-bool display_udp_packet_info(const uint8_t *packet, const size_t packet_len,
+bool display_udp_packet_info(const uint8_t *packet, [[maybe_unused]] const size_t packet_len,
                              output_buffer_t *output_buffer) {
   udp_header_t header;
 

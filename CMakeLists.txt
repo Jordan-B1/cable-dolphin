@@ -12,6 +12,7 @@ set(SOURCE_FOLDER ${CMAKE_CURRENT_LIST_DIR}/src)
 set(SOURCES
     ${SOURCE_FOLDER}/main.c
     ${SOURCE_FOLDER}/utils.c
+    ${SOURCE_FOLDER}/network_utils.c
 )
 
 add_subdirectory(${SOURCE_FOLDER}/libs)

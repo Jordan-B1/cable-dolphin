@@ -27,7 +27,7 @@ static void display_flags(const uint8_t flags, output_buffer_t *output_buffer) {
   write_buffer(output_buffer, "\n");
 }
 
-bool display_tcp_packet_info(const uint8_t *packet, const size_t packet_len,
+bool display_tcp_packet_info(const uint8_t *packet, [[maybe_unused]] const size_t packet_len,
                              output_buffer_t *output_buffer) {
   tcp_header_t header;
 

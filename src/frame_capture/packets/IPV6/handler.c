@@ -1,7 +1,7 @@
 #include "frame_capture/packets/IPV6/ipv6.h"
 #include "utils.h"
 
-static void write_ipv6_addr(struct in6_addr *addr,
+static void write_ipv6_addr(const struct in6_addr *addr,
                             output_buffer_t *output_buffer) {
     write_buffer(
         output_buffer,
